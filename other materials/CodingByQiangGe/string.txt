@@ -1,0 +1,55 @@
+
+
+// 字节数总是最后一个参数
+void * memset ( void * ptr, int byteValue, size_t numBytes);
+void * memcpy ( void * destination, const void * source, size_t numBytes);
+
+// C风格字符串（末尾自动添加'\0'）
+const char* str = "ABC";
+char str[] = "ABC";
+指向C++中C风格字符串的字符指针总是指向一个相关联的字符数组，即使当我们写一个字符串常量时，如：
+const char *st = "The expense of spirit\n"; 系统在内部也把字符串常量存储在一个字符串数组中，然后st 指向该数组的第一个元素
+while (*st) 
+{ ++len; ++st; }
+
+// 库函数
+#include <string.h> // C
+#include <cstring> // C++
+
+size_t strlen( const char* ); // 返回字符串的长度（不包括末尾空字符）
+
+int strcmp( const char*, const char* );
+int strncmp( const char * str1, const char * str2, size_t num ); // 仅比较前num个字符
+//当s1<s2时，返回值<0 ,当s1=s2时，返回值=0 ,当s1>s2时，返回值>0 
+strcmp("A", "A") = 0
+strcmp("A", "B") < 0
+
+strcat(s1, s2)		// 将字符串s2连接到s1后，并返回s1
+strncat(s1, s2, n)  // 将s2的前n个字符连接到s1后面，并返回s1
+Appends the first num characters of source to destination, plus a terminating null-character.
+
+strcpy(s1, s2)      // 将s2复制给s1（包括末尾空字符！），并返回s1
+strncpy(s1, s2, size_t n)  // 将s2的前n个字符复制给s1（不足n则补空字符），并返回s1
+
+// 字符查找
+const char * strchr ( const char * str, int character ); // 返回第一次出现的指针
+const char * strrchr ( const char * str, int character ); // 返回最后一次出现的指针（可用来找'\0'）
+
+// 字符串查找
+const char * strstr ( const char * str1, const char * str2 );
+Returns a pointer to the first occurrence of str2 in str1, or a null pointer if str2 is not part of str1. The matching process does not include the terminating null-characters.
+ 
+
+// 字符串 to 整数
+int atoi(const char* str);
+int val = (int)(ch - '0'); // val=0~9
+
+// 整数 to 字符串
+char* itoa(int value, char * str, int base); // 非标准库函数！base=10表示十进制
+sprintf(str, "%d", value); // %x 十六进制，%o 二进制
+char ch = '0' + val; // val=0~9
+
+strtok
+
+
+连续出现次数最多的子串

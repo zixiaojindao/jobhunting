@@ -1,0 +1,214 @@
+
+http://blog.csdn.net/hairetz/article/details/5836986
+一些常见的单链表题目，总结思路和实现代码。 
+1.单链表的反序 
+2.给单链表建环 
+3.检测单链表是否有环 
+4.给单链表解环 
+5.检测两条链表是否相交 
+6.不输入头节点，删除单链表的指定节点（只给定待删除节点指针） 
+
+单链表
+struct Node
+{
+	int info;
+	Node* next;
+	Node(int _info, Node* _next = NULL) : info(_info), next(_next) {}
+};
+
+Node* head;
+Node* tail;
+
+void push_front(int info)
+{
+	head = new Node(info, head);
+	if (!tail) tail = head; // handle empty list
+}
+
+void push_back(int info)
+{
+	if (tail) {
+		tail->next = new Node(info, NULL);
+		tail = tail->next;
+	}
+	else // handle empty list
+		head = tail = new Node(info, NULL);	
+}
+
+void InsertAfter(int info, Node* prev)
+{
+	if (prev) {
+		prev->next = new Node(info, prev->next);
+		if (prev == tail) tail = tail->next;
+	}
+	else head = tail = new Node(info, NULL);
+}
+
+int pop_front()
+{
+	if (!head) return -1; // handle empty list
+	int val = head->info;
+	Node* oldHead = head;	
+
+	if (head == tail) // handle single-node list
+		head = tail = NULL;
+	else
+		head = head->next;	
+		
+	delete oldHead;
+	return val;	
+}
+
+int pop_back()
+{
+	if (!head) return -1; // handle empty list
+	int val = tail->info;
+
+	if (head == tail) { // handle single-node list
+		delete tail;
+		head = tail = NULL;
+	} else {
+		Node* p = head;
+		while (p->next != tail) p = p->next; // find previous node of tail
+		tail = p;
+		delete tail->next;
+		tail->next = NULL;
+	}
+		
+	delete oldHead;
+	return val;	
+}
+
+void DeleteNode(int info) // delete first node with target info
+{
+	if (!head) return; // empty
+	if (head == tail) { // single node
+		if (head->info == info) {
+			delete head;
+			head = tail = NULL;
+		}
+	} else if (head->info == info) { // delete from head
+		Node* p = head;
+		head = head->next;
+		delete p;
+	} else { // delete from middle
+		Node* p1 = head;
+		Node* p2 = head->next;
+		while (p2 && p2->info != info) {
+			p1 = p2;
+			p2 = p2->next;
+		}
+		if (p2) { // found at p2
+			p1->next = p2->next; // ignore p2
+			delete p2;
+			if (p2 == tail) tail = p1;
+		}
+	}
+}
+
+Node* Reverse(Node* head)
+{
+	if (head == NULL || head->next == NULL) return head; // 0 or 1 node
+	Node* curr = head;
+	Node* prev = NULL;
+	Node* next = NULL;
+	while (curr != NULL)
+	{
+		next = curr->next;
+		curr->next = prev;
+		prev = curr;
+		curr = next;
+	}
+	//head->next = NULL; // already assigned
+	return prev; // return new head
+}
+
+遍历一次求中间node：两指针步长分别为1和2
+
+双链表
+void AddToTail(int info)
+{
+	if (tail) { // non-empty
+		tail->next = new Node(info, prev=tail, next=NULL);
+		tail = tail->next;
+	} else { // empty
+		head = tail = new Node(info);
+	}
+}
+void DeleteFromTail(void)
+{
+	if (!tail) return;
+	if (head == tail) { // single node
+		delete tail;
+		head = tail = NULL;
+	} else {
+		tail = tail->prev;
+		delete tail->next;
+		tail->next = NULL;			
+	}	
+}
+
+循环单链表
+void AddToTail(int info)
+{
+	if (!tail) {
+		tail = new Node(info, NULL);
+		tail->next = tail;
+	} else {
+		tail->next = new Node(info, tail->next); //
+		tail = tail->next;
+	}	
+}
+
+std::list<T> 双链表，有头、尾指针
+
+栈和队列：可用链表或（循环）数组实现
+
+两个栈实现队列
+两个队列实现栈
+
+二叉搜索树BST
+查找
+template<class T> bool BST<T>::search(BSTNode<T>* p, const T& query) const
+{
+	while (p) {
+		if (query == p->info)
+			return true;
+		else if (query < p->info)
+			p = p->left;
+		else p = p->right;
+	}
+	return false; // not found
+	}
+}
+
+广度优先遍历
+void breadFirst(BSTNode* p)
+{
+	if (!p) return;
+	Queue<BSTNode*> queue;
+	queue.enqueue(p);
+	while (!queue.empty()) {
+		p = queue.dequeue();
+		visit(p);
+		if (p->left) queue.enqueue(p->left);
+		if (p->right) queue.enqueue(p->right);
+	}
+}
+
+深度优先遍历：前序preorder 中序inorder 后序postorder
+void preorder(BSTNode* p) // 递归实现
+{
+	if (p) {
+		visit(p);
+		preorder(p->left);
+		preorder(p->right);
+	}
+}
+
+插入
+删除
+
+
+	
+

@@ -1,0 +1,3 @@
+1.完成Careercup里Amazon、Google和Microsoft这三个分类下面的前20页面试题
+2.完成TopCoder的数十道D1L2~D2L1难度区间的算法题目 
+3.http://leetcode.com/onlinejudge
