@@ -3,3 +3,4 @@
 3.排序算法
 4.图论算法，最短路，最小生成树
 5.贪心算法
+6.LSH, ada boost, bloom filter, bayes classifer

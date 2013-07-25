@@ -1,3 +1,3 @@
 1.熟悉操作系统概念process, thread, kernel and user mode, meomory allocation, virutal memory, mutex, deadlocks, cache. 各种调度替换策略。
 2.计算机组成原理，主要弄懂整形，浮点型，堆栈结构。五段流水线。
- 
+3.计算机组成原理的第一个实验，使用各种位运算来实现其他位运算及逻辑运算符。
